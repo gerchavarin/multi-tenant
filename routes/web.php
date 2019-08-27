@@ -23,3 +23,6 @@ Route::get('/hello', function () {
     return '<h1>Hello System</h1>';
 });
 
+Route::get('/articles', function () {
+    return view('writer');
+});
