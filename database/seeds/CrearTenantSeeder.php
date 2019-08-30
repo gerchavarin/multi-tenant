@@ -17,8 +17,8 @@ class CrearTenantSeeder extends Seeder
     public function run()
     {
         $website = new Website;
-        $website->uuid = "tenant_test_1";
-        $website->managed_by_database_connection = 'tenant1';
+        //$website->uuid = "tenant_test_1";
+        //$website->managed_by_database_connection = 'tenant1';
         app(WebsiteRepository::class)->create($website);
         
         $hostname = new Hostname;
@@ -30,8 +30,8 @@ class CrearTenantSeeder extends Seeder
         $website = app(\Hyn\Tenancy\Environment::class)->website();
         
         $website = new Website;
-        $website->uuid = "tenant_test_2";
-        $website->managed_by_database_connection = 'tenant2';
+        //$website->uuid = "tenant_test_2";
+        //$website->managed_by_database_connection = 'tenant2';
         app(WebsiteRepository::class)->create($website);
         
         $hostname = new Hostname;

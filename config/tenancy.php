@@ -238,7 +238,7 @@ return [
          *
          * @info set to false to disable.
          */
-        'auto-create-tenant-database' => false,
+        'auto-create-tenant-database' => true,
 
         /**
          * Automatically generate the user needed to access the database.
@@ -249,7 +249,7 @@ return [
          *
          * @info set to false to disable.
          */
-        'auto-create-tenant-database-user' => false,
+        'auto-create-tenant-database-user' => true,
 
         /**
          * Set of database privileges to give to the tenant database user.
