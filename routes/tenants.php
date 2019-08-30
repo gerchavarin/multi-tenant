@@ -15,6 +15,8 @@ Route::middleware('web')
     ->namespace('App\\Http\\Controllers\\')
     ->group(function ()
 {
+    Auth::routes();
+    
     Route::get('/hello', function () {
         return '<h1>Hello Tenant</h1>';
     });
