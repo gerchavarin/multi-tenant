@@ -1,11 +1,14 @@
 <?php
 
+use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Hyn\Tenancy\Contracts\Repositories\HostnameRepository;
 use Hyn\Tenancy\Contracts\Repositories\WebsiteRepository;
 use Hyn\Tenancy\Environment;
 use Hyn\Tenancy\Models\Hostname;
 use Hyn\Tenancy\Models\Website;
+use Symfony\Component\Console\Output\ConsoleOutput;
+
 
 class CrearTenantSeeder extends Seeder
 {
@@ -16,30 +19,41 @@ class CrearTenantSeeder extends Seeder
      */
     public function run()
     {
-        $website = new Website;
-        //$website->uuid = "tenant_test_1";
-        //$website->managed_by_database_connection = 'tenant1';
-        app(WebsiteRepository::class)->create($website);
+        $faker = Faker::create();
+
+        $hosts = '';
+
+        foreach (range(1, 5) as $index) {
+
+            // Register tenant
+
+            $baseUrl = config('app.url_base');
+
+            $tenantName = null;
+            $fqdn = null;
+            $tenantExist = true;
+
+            while($tenantExist) {
+                $tenantName = $faker->domainWord();
+                $fqdn = "{$tenantName}.{$baseUrl}";
+                $tenantExist = Hostname::where('fqdn', $fqdn)->exists();
+            }
+
+            $website = new Website;
+            app(WebsiteRepository::class)->create($website);
+
+            $hostname = new Hostname;
+            
+            $hostname->fqdn = $fqdn;
+            app(HostnameRepository::class)->attach($hostname, $website);
+            
+            $hostname = app(\Hyn\Tenancy\Environment::class)->hostname();
+            $website = app(\Hyn\Tenancy\Environment::class)->website();
+            
+            $hosts .= '127.0.0.1 ' . $fqdn . PHP_EOL;
+        }
         
-        $hostname = new Hostname;
-        $hostname->fqdn = 'tenant1.demo.test';
-        $hostname = app(HostnameRepository::class)->create($hostname);
-        app(HostnameRepository::class)->attach($hostname, $website);
-        
-        $hostname = app(\Hyn\Tenancy\Environment::class)->hostname();
-        $website = app(\Hyn\Tenancy\Environment::class)->website();
-        
-        $website = new Website;
-        //$website->uuid = "tenant_test_2";
-        //$website->managed_by_database_connection = 'tenant2';
-        app(WebsiteRepository::class)->create($website);
-        
-        $hostname = new Hostname;
-        $hostname->fqdn = 'tenant2.demo.test';
-        $hostname = app(HostnameRepository::class)->create($hostname);
-        app(HostnameRepository::class)->attach($hostname, $website);
-        
-        $hostname = app(\Hyn\Tenancy\Environment::class)->hostname();
-    	$website = app(\Hyn\Tenancy\Environment::class)->website();
+        $out = new ConsoleOutput();
+        $out->writeln($hosts);
     }
 }
