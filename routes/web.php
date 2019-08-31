@@ -12,15 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('tenants');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/hello', function () {
-    return '<h1>Hello System</h1>';
-});
-
-Route::get('/articles', function () {
-    return view('writer');
-});
+Route::resource('tenants', 'TenantController');

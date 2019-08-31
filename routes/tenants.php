@@ -15,14 +15,15 @@ Route::middleware('web')
     ->namespace('App\\Http\\Controllers\\')
     ->group(function ()
 {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
     Auth::routes();
     
-    Route::get('/hello', function () {
-        return '<h1>Hello Tenant</h1>';
-    });
-    
-    Route::get('/users', function() {
-        dump(app('request')->url());
-        dump(App\User::all()->pluck('name'));
+    Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::get('/articles', function () {
+        return view('writer');
     });
 });

@@ -40,15 +40,15 @@ class CrearTenantSeeder extends Seeder
             }
 
             $website = new Website;
+
             app(WebsiteRepository::class)->create($website);
 
             $hostname = new Hostname;
-            
             $hostname->fqdn = $fqdn;
+
             app(HostnameRepository::class)->attach($hostname, $website);
-            
-            $hostname = app(\Hyn\Tenancy\Environment::class)->hostname();
-            $website = app(\Hyn\Tenancy\Environment::class)->website();
+            app(Environment::class)->hostname();
+            app(Environment::class)->website();
             
             $hosts .= '127.0.0.1 ' . $fqdn . PHP_EOL;
         }
