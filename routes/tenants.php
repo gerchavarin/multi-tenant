@@ -19,7 +19,9 @@ Route::middleware('web')
         return view('welcome');
     });
 
-    Auth::routes();
+    Route::resource('/enterprises','EnterpriseController');
+    Route::resource('/records','RecordController');
+    Route::resource('tenants', 'TenantController');
     
     Route::get('/home', 'HomeController@index')->name('home');
 
