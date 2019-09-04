@@ -21,7 +21,7 @@ Route::middleware('web')
 
     Route::resource('/enterprises','EnterpriseController');
     Route::resource('/records','RecordController');
-    Route::resource('tenants', 'TenantController');
+    
     
     Route::get('/home', 'HomeController@index')->name('home');
 

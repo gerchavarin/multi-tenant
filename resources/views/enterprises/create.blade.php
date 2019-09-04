@@ -1,4 +1,4 @@
-@extends('tenants.layout')
+@extends('enterprises.layout')
 
 @section('content')
 <div class="container">
