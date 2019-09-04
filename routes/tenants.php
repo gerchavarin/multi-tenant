@@ -23,7 +23,11 @@ Route::middleware('web')
 
     Route::resource('/enterprises','EnterpriseController');
     Route::resource('/records','RecordController');
-    
+
+    Route::get('/enterprises/{id}/records','RecordController@showRecordsInEnterprise')->name('records-enterprises');
+    Route::post('/enterprises/{id}/records','RecordController@storeRecordsInEnterprise')->name('add-records-enterprises');
+    Route::get('/enterprises/{id}/records/create','RecordController@createRecordsInEnterprise')->name('create-records-enterprises');
+
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/articles', function () {

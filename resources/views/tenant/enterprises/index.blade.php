@@ -24,7 +24,7 @@
                             <td>RFC</td>
                             <td>Descripción</td>
                             <td>Nombre</td>
-                            <td colspan="2">Action</td>
+                            <td colspan="3">Action</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,6 +34,7 @@
                                 <td>{{$enterprise->description}}</td>
                                 <td>{{$enterprise->name}}</td>
                                 <td><a href="{{ route('enterprises.edit',$enterprise->id)}}" class="btn btn-primary btn-sm">Edit</a></td>
+                                <td><a href="{{ route('records-enterprises',$enterprise->id)}}" class="btn btn-primary btn-sm">Add record</a></td>
                                 <td>
                                     <form action="{{ route('enterprises.destroy', $enterprise->id)}}" method="post">
                                         @csrf

@@ -6,8 +6,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    records
-                    <a href="{{ route('records.create')}}" class="btn btn-success btn-sm float-right">Crear</a>
+                    Records FROM {{$enterprise_id}}
+                    <a href="{{ route('create-records-enterprises',$enterprise_id)}}" class="btn btn-success btn-sm float-right">Crear</a>
                     
                 </div>
                 

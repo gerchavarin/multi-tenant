@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Record;
+use App\Enterprise;
 class RecordController extends Controller
 {
     /**
@@ -113,6 +114,38 @@ class RecordController extends Controller
         $record = Record::findOrFail($id);
         $record->destroy($id);
         
-        return redirect('/records');
+        return redirect()->back();
+    }
+
+    public function showRecordsInEnterprise($id)
+    {
+        $recordsEnterprises = Enterprise::findOrFail($id);
+        $records = $recordsEnterprises->records;
+        
+        return view('tenant.records.index',['records' => $records,
+                                            'enterprise_id' => $id]);
+    }
+
+    public function storeRecordsInEnterprise(Request $request,$id)
+    {
+        $request->validate([
+            'type' => 'required',
+            'mount' => 'required|numeric',
+            'description' => 'required'
+        ]);
+
+        $record = Record::create(['type' => $request['type'],
+                            'mount' => $request['mount'],
+                            'description' => $request['description'],
+                            'enterprise_id' => $id
+                            ]);
+
+        return redirect("/enterprises/{$id}/records")->with('success', "Record with id {$record->id} has been added.");
+    }
+
+    public function createRecordsInEnterprise($id)
+    {
+        
+        return view('tenant.records.create',['enterprise_id' => $id]);
     }
 }
