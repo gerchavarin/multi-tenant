@@ -39,7 +39,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                           <a class="nav-link" href="{{ route('enterprises.index') }}">{{ __('Enterprises') }}</a>
+                           <a class="nav-link" href="{{ route('records.index') }}">{{ __('Records') }}</a>
                         </li>
                     </ul>
                 </div>

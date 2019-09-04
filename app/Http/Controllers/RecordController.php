@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Record;
 class RecordController extends Controller
 {
     /**
@@ -14,8 +14,8 @@ class RecordController extends Controller
     public function index()
     {
         $records = Record::all();
-        //return view('enterprises.index',['enterprises' => $enterprises]);
-        return $records;
+        return view('records.index',['records' => $records]);
+        //return $records;
     }
 
     /**
@@ -25,7 +25,7 @@ class RecordController extends Controller
      */
     public function create()
     {
-        //
+        return view('records.create');
     }
 
     /**
@@ -36,7 +36,18 @@ class RecordController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'type' => 'required',
+            'mount' => 'required|numeric',
+            'description' => 'required'
+        ]);
+
+        $record = Record::create(['type' => $request['type'],
+                            'mount' => $request['mount'],
+                            'description' => $request['description']
+                            ]);
+
+        return redirect('/records')->with('success', "Record with id {$record->id} has been added.");
     }
 
     /**
@@ -47,7 +58,7 @@ class RecordController extends Controller
      */
     public function show($id)
     {
-        $record = Records::findOrFail($id);
+        $record = Record::findOrFail($id);
         return $enterprise;
     }
 
@@ -59,7 +70,10 @@ class RecordController extends Controller
      */
     public function edit($id)
     {
-        //
+        $record = Record::findOrFail($id);
+
+        return view('records.edit',['id' => $record->id,
+                                    'record' => $record]);
     }
 
     /**
@@ -71,7 +85,21 @@ class RecordController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'type' => 'required',
+            'mount' => 'required|numeric',
+            'description' => 'required'
+        ]);
+        
+        $record = Record::findOrFail($id);
+
+        $record->type = $request['type'];
+        $record->mount = $request['mount'];
+        $record->description = $request['description'];
+        $record->save();
+
+        return redirect('/records')->with('success', "Record with id {$record->id} has been updated.");
+
     }
 
     /**
@@ -82,6 +110,9 @@ class RecordController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $record = Record::findOrFail($id);
+        $record->destroy($id);
+        
+        return redirect('/records');
     }
 }
