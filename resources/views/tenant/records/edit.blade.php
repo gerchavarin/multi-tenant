@@ -5,11 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Records -> {{$record->type}}</div>
+                <div class="card-header">Records -> {{$record_id}}</div>
 
                 <div class="card-body">
-                    <form method="post" action="{{ route('records.update', $record->id) }}">
-                        @method('PATCH')
+                    <form method="post" action="{{ route('update-records-enterprises',['rid' => $record->id, 'id' => $enterprise_id]) }}">
+                        @method('PUT')
                         @csrf
 
                         <div class="form-group row">

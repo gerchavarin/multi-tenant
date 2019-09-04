@@ -33,7 +33,7 @@
                                 <td>{{$record->type}}</td>
                                 <td>{{$record->mount}}</td>
                                 <td>{{$record->description}}</td>
-                                <td><a href="{{ route('records.edit',$record->id)}}" class="btn btn-primary btn-sm">Edit</a></td>
+                                <td><a href="{{ route('edit-records-enterprises',['id' => $enterprise_id, 'rid' =>$record->id])}}" class="btn btn-primary btn-sm">Edit</a></td>
                                 <td>
                                     <form action="{{ route('records.destroy', $record->id)}}" method="post">
                                         @csrf

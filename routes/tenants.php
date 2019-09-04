@@ -27,6 +27,8 @@ Route::middleware('web')
     Route::get('/enterprises/{id}/records','RecordController@showRecordsInEnterprise')->name('records-enterprises');
     Route::post('/enterprises/{id}/records','RecordController@storeRecordsInEnterprise')->name('add-records-enterprises');
     Route::get('/enterprises/{id}/records/create','RecordController@createRecordsInEnterprise')->name('create-records-enterprises');
+    Route::put('/enterprises/{id}/records/{rid}','RecordController@updateRecordsInEnterprise')->name('update-records-enterprises');
+    Route::get('/enterprises/{id}/records/{rid}/edit','RecordController@editRecordsInEnterprise')->name('edit-records-enterprises');
 
     Route::get('/home', 'HomeController@index')->name('home');
 

@@ -148,4 +148,32 @@ class RecordController extends Controller
         
         return view('tenant.records.create',['enterprise_id' => $id]);
     }
+
+    public function editRecordsInEnterprise($id,$rid)
+    {
+
+        $record = Record::findOrFail($rid);   
+
+        return view('tenant.records.edit',['record' => $record, 
+                                           'record_id' => $rid,
+                                            'enterprise_id' => $id]);
+    }
+
+    public function updateRecordsInEnterprise(Request $request, $id, $rid)
+    {
+        $request->validate([
+            'type' => 'required',
+            'mount' => 'required|numeric',
+            'description' => 'required'
+        ]);
+        
+        $record = Record::findOrFail($rid);
+
+        $record->type = $request['type'];
+        $record->mount = $request['mount'];
+        $record->description = $request['description'];
+        $record->save();
+
+        return redirect("/enterprises/{$id}/records")->with('success', "Record with id {$record->id} has been updated.");
+    }
 }
