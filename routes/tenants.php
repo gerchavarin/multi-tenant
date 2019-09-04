@@ -16,7 +16,7 @@ Route::middleware('web')
     ->group(function ()
 {
     Route::get('/', function () {
-        return view('welcome');
+        return view('tenant.welcome');
     });
 
     Auth::routes();

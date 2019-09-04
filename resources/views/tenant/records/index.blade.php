@@ -1,4 +1,4 @@
-@extends('enterprises.layout')
+@extends('tenant.layouts.app')
 
 @section('content')
 <div class="container">
@@ -6,8 +6,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    Enterprises
-                    <a href="{{ route('enterprises.create')}}" class="btn btn-success btn-sm float-right">Crear</a>
+                    records
+                    <a href="{{ route('records.create')}}" class="btn btn-success btn-sm float-right">Crear</a>
                     
                 </div>
                 
@@ -28,14 +28,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($enterprises as $enterprise)
+                            @foreach($records as $record)
                             <tr>
-                                <td>{{$enterprise->rfc}}</td>
-                                <td>{{$enterprise->description}}</td>
-                                <td>{{$enterprise->name}}</td>
-                                <td><a href="{{ route('enterprises.edit',$enterprise->id)}}" class="btn btn-primary btn-sm">Edit</a></td>
+                                <td>{{$record->type}}</td>
+                                <td>{{$record->mount}}</td>
+                                <td>{{$record->description}}</td>
+                                <td><a href="{{ route('records.edit',$record->id)}}" class="btn btn-primary btn-sm">Edit</a></td>
                                 <td>
-                                    <form action="{{ route('enterprises.destroy', $enterprise->id)}}" method="post">
+                                    <form action="{{ route('records.destroy', $record->id)}}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger btn-sm" type="submit">Delete</button>

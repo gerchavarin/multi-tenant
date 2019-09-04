@@ -14,7 +14,7 @@ class RecordController extends Controller
     public function index()
     {
         $records = Record::all();
-        return view('records.index',['records' => $records]);
+        return view('tenant.records.index',['records' => $records]);
         //return $records;
     }
 
@@ -25,7 +25,7 @@ class RecordController extends Controller
      */
     public function create()
     {
-        return view('records.create');
+        return view('tenant.records.create');
     }
 
     /**
@@ -72,7 +72,7 @@ class RecordController extends Controller
     {
         $record = Record::findOrFail($id);
 
-        return view('records.edit',['id' => $record->id,
+        return view('tenant.records.edit',['id' => $record->id,
                                     'record' => $record]);
     }
 

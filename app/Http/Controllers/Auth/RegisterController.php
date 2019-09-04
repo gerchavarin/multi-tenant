@@ -69,7 +69,7 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $enterprises = Enterprise::all();
-        return view('auth.register',['enterprises' => $enterprises]);
+        return view('tenant.auth.register',['enterprises' => $enterprises]);
     }
 
     /**

@@ -14,7 +14,7 @@ class EnterpriseController extends Controller
     public function index()
     {
         $enterprises = Enterprise::all();
-        return view('enterprises.index',['enterprises' => $enterprises]);
+        return view('tenant.enterprises.index',['enterprises' => $enterprises]);
         return $enterprises;
     }
 
@@ -25,7 +25,7 @@ class EnterpriseController extends Controller
      */
     public function create()
     {
-        return view('enterprises.create');
+        return view('tenant.enterprises.create');
     }
 
     /**
@@ -71,7 +71,7 @@ class EnterpriseController extends Controller
     public function edit($id)
     {
         $enterprise = Enterprise::findOrFail($id);
-        return view('enterprises.edit',compact('enterprise'));
+        return view('tenant.enterprises.edit',compact('enterprise'));
     }
 
     /**
