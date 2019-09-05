@@ -21,6 +21,8 @@ GRANT ALL PRIVILEGES ON DATABASE tenancy TO tenancy WITH GRANT OPTION;
 *  `php artisan key:generate`
 *  `php artisan migrate --database=system`
 *  `php artisan db:seed --class="CrearTenantSeeder"`
+*  `npm install`
+*  `npm run dev` or `npm run production`
 
 ### Domain names
 
