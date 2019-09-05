@@ -23,6 +23,7 @@ Route::middleware('web')
 
     Route::resource('/enterprises','EnterpriseController');
     Route::resource('/records','RecordController');
+    Route::resource('/users','UserController');
 
     Route::get('/enterprises/{id}/records','RecordController@showRecordsInEnterprise')->name('records-enterprises');
     Route::post('/enterprises/{id}/records','RecordController@storeRecordsInEnterprise')->name('add-records-enterprises');

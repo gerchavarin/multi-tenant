@@ -57,7 +57,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:tenant.users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'enterprise_id' => ['nullable', 'string'],
+            'enterprise_ids' => ['nullable', 'array'],
         ]);
     }
 
@@ -102,8 +102,8 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        if(isset($data['enterprise_id'])) {
-            $user->enterprises()->attach($data['enterprise_id']);
+        if(isset($data['enterprise_ids'])) {
+            $user->enterprises()->attach($data['enterprise_ids']);
         }
 
         return $user;
