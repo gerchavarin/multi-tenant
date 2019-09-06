@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Enterprise;
+use Auth;
+use App\User;
 class EnterpriseController extends Controller
 {
     /**
@@ -13,7 +15,9 @@ class EnterpriseController extends Controller
      */
     public function index()
     {
-        $enterprises = Enterprise::all();
+        //$enterprises = Enterprise::all();
+        
+        $enterprises = User::findOrFail(Auth::id())->enterprises;
         return view('tenant.enterprises.index',['enterprises' => $enterprises]);
         return $enterprises;
     }
