@@ -17,12 +17,17 @@
                             <label for="description" class="col-md-4 col-form-label text-md-center">{{ __('Description') }}</label>
 
                             <div class="col-md-4">
-                                <input id="type" type="text" class="form-control @error('type') is-invalid @enderror" name="type" value="{{ old('type') }}" required autocomplete="type" autofocus>
+                                <!--<input id="type" type="text" class="form-control @error('type') is-invalid @enderror" name="type" value="{{ old('type') }}" required autocomplete="type" autofocus>
                                 @error('type')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                @enderror-->
+
+                                <select  name = "type" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                                    <option value="ingreso"selected>Ingreso</option>
+                                    <option value="gasto">Gasto</option>
+                                </select>
                             </div>
                             <div class="col-md-4">
                             <input id="mount" type="text" class="form-control @error('mount') is-invalid @enderror" name="mount" value="{{ old('mount') }}" required autocomplete="mount" autofocus>

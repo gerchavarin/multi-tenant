@@ -119,11 +119,27 @@ class RecordController extends Controller
 
     public function showRecordsInEnterprise($id)
     {
+        $positive = 0;
+        $negative = 0;
+
         $recordsEnterprises = Enterprise::findOrFail($id);
         $records = $recordsEnterprises->records;
+
+        foreach ($records as $record){
+            
+            if($record->type == 'ingreso'){
+                $positive += $record->mount; 
+            }else{
+                $negative += $record->mount;
+            }
+        }
+
+        //return $positive - $negative;
         
         return view('tenant.records.index',['records' => $records,
-                                            'enterprise_id' => $id]);
+                                            'enterprise_id' => $id,
+                                            'positive' => $positive,
+                                            'negative' => $negative]);
     }
 
     public function storeRecordsInEnterprise(Request $request,$id)

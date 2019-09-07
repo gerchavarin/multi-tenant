@@ -21,9 +21,10 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                            <td>RFC</td>
-                            <td>Descripción</td>
-                            <td>Nombre</td>
+                            <td>Type</td>
+                            <td>Amount</td>
+                            <td>Description</td>
+                            <td>Date</td>
                             <td colspan="2">Action</td>
                             </tr>
                         </thead>
@@ -33,6 +34,7 @@
                                 <td>{{$record->type}}</td>
                                 <td>{{$record->mount}}</td>
                                 <td>{{$record->description}}</td>
+                                <td>{{$record->created_at}}</td>
                                 <td><a href="{{ route('edit-records-enterprises',['id' => $enterprise_id, 'rid' =>$record->id])}}" class="btn btn-primary btn-sm">Edit</a></td>
                                 <td>
                                     <form action="{{ route('records.destroy', $record->id)}}" method="post">
@@ -45,6 +47,13 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <hr>
+                    Ingresos: <span class="badge badge-success">${{ number_format($positive,2 )}}</span>    Gastos: <span class="badge badge-danger">${{ number_format($negative,2) }}</span> 
+                    
+                    <div class="text-right">
+                        <h2>Saldo:<span class="badge badge-primary"> ${{ number_format($positive - $negative,2) }}</span></h2>
+                    </div>    
+
                 </div>
             </div>
         </div>
