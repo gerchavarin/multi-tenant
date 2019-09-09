@@ -16,7 +16,7 @@ class RecordController extends Controller
     {
         $records = Record::all();
         return view('tenant.records.index',['records' => $records]);
-        //return $records;
+        
     }
 
     /**
@@ -117,28 +117,14 @@ class RecordController extends Controller
         return redirect()->back();
     }
 
-    public function showRecordsInEnterprise($id,$keys = null)
+    public function showRecordsInEnterprise($id)
     {
         $positive = 0;
         $negative = 0;
 
         $recordsEnterprises = Enterprise::findOrFail($id);
         $records = $recordsEnterprises->records()->where('created_at','>=',now()->format('Y-m-d'))->get();
-        //$records = $recordsEnterprises->records;
-
-        if(!Empty($keys)){
-            
-            //dd($keys['init'].$keys['last']);
-
-           $from=  \Carbon\Carbon::createFromFormat('Y-m-d', date($keys['init']))->DateTime;
-           $to =   \Carbon\Carbon::createFromFormat('Y-m-d', date($keys['last']))->DateTime;
-    
-
-           return $recordsEnterprises->records()->whereBetween('updated_at',[$from,$to])->get();
-            dd($keys['init']);
-        }
-
-
+        
         foreach ($records as $record){
             
             if($record->type == 'ingreso'){
@@ -148,8 +134,6 @@ class RecordController extends Controller
             }
         }
 
-        //return $positive - $negative;
-        
         return view('tenant.records.index',['records' => $records,
                                             'enterprise_id' => $id,
                                             'positive' => $positive,
@@ -208,11 +192,26 @@ class RecordController extends Controller
     }
 
     public function searchByDate(Request $request,$id){
-        //dd( "init :".$request['init']." Last :".$request['last']);
 
+        $positive = 0;
+        $negative = 0;
+        
+        $recordsEnterprises = Enterprise::findOrFail($id);
+        $records = $recordsEnterprises->records()->whereBetween('created_at',['init' => $request['init'],'last' => $request['last']])->get();
+
+        foreach ($records as $record){
             
-        $this->showRecordsInEnterprise($id,['init' => $request['init'],
-                                            'last' => $request['last']]);
+            if($record->type == 'ingreso'){
+                $positive += $record->mount; 
+            }else{
+                $negative += $record->mount;
+            }
+        }
 
+        return view('tenant.records.index',['records' => $records,
+                                            'enterprise_id' => $id,
+                                            'positive' => $positive,
+                                            'negative' => $negative]);
+        
     }
 }
