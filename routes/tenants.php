@@ -31,6 +31,10 @@ Route::middleware('web')
     Route::put('/enterprises/{id}/records/{rid}','RecordController@updateRecordsInEnterprise')->name('update-records-enterprises');
     Route::get('/enterprises/{id}/records/{rid}/edit','RecordController@editRecordsInEnterprise')->name('edit-records-enterprises');
 
+
+    Route::post('/enterprises/{id}/records/search','RecordController@searchByDate')->name('search-by-date');
+    
+
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/articles', function () {

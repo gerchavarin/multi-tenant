@@ -10,7 +10,7 @@ class Record extends Model
 {
     use SoftDeletes, UsesTenantConnection;
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at','created_at','updated_at'];
 
     protected $fillable = [
         'type',

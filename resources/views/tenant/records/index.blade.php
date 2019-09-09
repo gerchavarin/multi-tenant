@@ -17,6 +17,18 @@
                             {{ session('success') }}
                         </div>
                     @endif
+                <div class="text-right">
+
+                    <form action="{{ route('search-by-date',$enterprise_id )}}" method="post">
+                    @csrf
+                         <label for="">fecha inicio</label>   
+                        <input type="date" class="datepicker" name="init">
+                        <label for="">fecha final</label>
+                        <input type="date" class="datepicker" name="last">
+                        <button type="submit" class="btn btn-primary btn-sm">Buscar</button>                  
+                    </form>
+                
+                </div>
 
                     <table class="table table-striped">
                         <thead>
@@ -58,5 +70,12 @@
             </div>
         </div>
     </div>
+    <script>
+    $('.datepicker').datepicker({
+        format: "dd/mm/yyyy",
+        language: "es",
+        autoclose: true
+    });
+</script>
 </div>
 @endsection

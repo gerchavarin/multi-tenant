@@ -117,13 +117,27 @@ class RecordController extends Controller
         return redirect()->back();
     }
 
-    public function showRecordsInEnterprise($id)
+    public function showRecordsInEnterprise($id,$keys = null)
     {
         $positive = 0;
         $negative = 0;
 
         $recordsEnterprises = Enterprise::findOrFail($id);
-        $records = $recordsEnterprises->records;
+        $records = $recordsEnterprises->records()->where('created_at','>=',now()->format('Y-m-d'))->get();
+        //$records = $recordsEnterprises->records;
+
+        if(!Empty($keys)){
+            
+            //dd($keys['init'].$keys['last']);
+
+           $from=  \Carbon\Carbon::createFromFormat('Y-m-d', date($keys['init']))->DateTime;
+           $to =   \Carbon\Carbon::createFromFormat('Y-m-d', date($keys['last']))->DateTime;
+    
+
+           return $recordsEnterprises->records()->whereBetween('updated_at',[$from,$to])->get();
+            dd($keys['init']);
+        }
+
 
         foreach ($records as $record){
             
@@ -191,5 +205,14 @@ class RecordController extends Controller
         $record->save();
 
         return redirect("/enterprises/{$id}/records")->with('success', "Record with id {$record->id} has been updated.");
+    }
+
+    public function searchByDate(Request $request,$id){
+        //dd( "init :".$request['init']." Last :".$request['last']);
+
+            
+        $this->showRecordsInEnterprise($id,['init' => $request['init'],
+                                            'last' => $request['last']]);
+
     }
 }
