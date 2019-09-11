@@ -21,21 +21,21 @@ Route::middleware('web')
 
     Auth::routes();
 
-    Route::resource('/enterprises','EnterpriseController');
-    Route::resource('/records','RecordController');
-    Route::resource('/users','UserController');
-
-    Route::get('/enterprises/{id}/records','RecordController@showRecordsInEnterprise')->name('records-enterprises');
-    Route::post('/enterprises/{id}/records','RecordController@storeRecordsInEnterprise')->name('add-records-enterprises');
-    Route::get('/enterprises/{id}/records/create','RecordController@createRecordsInEnterprise')->name('create-records-enterprises');
-    Route::put('/enterprises/{id}/records/{rid}','RecordController@updateRecordsInEnterprise')->name('update-records-enterprises');
-    Route::get('/enterprises/{id}/records/{rid}/edit','RecordController@editRecordsInEnterprise')->name('edit-records-enterprises');
-
-
-    Route::post('/enterprises/{id}/records/search','RecordController@searchByDate')->name('search-by-date');
+    Route::group(['middleware' => ['auth']], function () {
+        Route::resource('/enterprises','EnterpriseController');
+        Route::resource('/records','RecordController');
+        Route::resource('/users','UserController');
     
-
-    Route::get('/home', 'HomeController@index')->name('home');
+        Route::get('/enterprises/{id}/records','RecordController@showRecordsInEnterprise')->name('records-enterprises');
+        Route::post('/enterprises/{id}/records','RecordController@storeRecordsInEnterprise')->name('add-records-enterprises');
+        Route::get('/enterprises/{id}/records/create','RecordController@createRecordsInEnterprise')->name('create-records-enterprises');
+        Route::put('/enterprises/{id}/records/{rid}','RecordController@updateRecordsInEnterprise')->name('update-records-enterprises');
+        Route::get('/enterprises/{id}/records/{rid}/edit','RecordController@editRecordsInEnterprise')->name('edit-records-enterprises');
+    
+        Route::post('/enterprises/{id}/records/search','RecordController@searchByDate')->name('search-by-date');
+    
+        Route::get('/home', 'HomeController@index')->name('home');
+    });
 
     Route::get('/articles', function () {
         return view('writer');
