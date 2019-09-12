@@ -31,6 +31,7 @@ Route::middleware('web')
         Route::get('/enterprises/{id}/records/create','RecordController@createRecordsInEnterprise')->name('create-records-enterprises');
         Route::put('/enterprises/{id}/records/{rid}','RecordController@updateRecordsInEnterprise')->name('update-records-enterprises');
         Route::get('/enterprises/{id}/records/{rid}/edit','RecordController@editRecordsInEnterprise')->name('edit-records-enterprises');
+        Route::get('/enterprises/{id}/records/download','RecordController@downloadRecordsInEnterprise')->name('download-records-enterprises');
     
         Route::post('/enterprises/{id}/records/search','RecordController@searchByDate')->name('search-by-date');
     

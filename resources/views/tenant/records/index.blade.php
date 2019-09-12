@@ -8,6 +8,7 @@
                 <div class="card-header">
                     Records FROM {{$enterprise_id}}
                     <a href="{{ route('create-records-enterprises',$enterprise_id)}}" class="btn btn-success btn-sm float-right">Crear</a>
+                    <a href="{{ route('download-records-enterprises',$enterprise_id)}}" class="btn btn-primary btn-sm float-right mr-2">Exportar</a>
                     
                 </div>
                 

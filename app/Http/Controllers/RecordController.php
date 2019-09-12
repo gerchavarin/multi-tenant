@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Record;
 use App\Enterprise;
+use App\Record;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 class RecordController extends Controller
 {
     /**
@@ -189,6 +191,28 @@ class RecordController extends Controller
         $record->save();
 
         return redirect("/enterprises/{$id}/records")->with('success', "Record with id {$record->id} has been updated.");
+    }
+
+    public function downloadRecordsInEnterprise($id)
+    {
+        $folder = Storage::disk('tenant')->makeDirectory('enterprises/' . $id);
+
+        $enterprise = Enterprise::findOrFail($id);
+        $records = $enterprise->records()->get();
+
+        $output = implode(',', ['id', 'type', 'mount', 'description', 'created_at', 'updated_at']) . PHP_EOL;
+
+        foreach ($records as $record) {
+            $output .=  implode(',', [$record['id'], $record['type'], $record['mount'], $record['description'], $record['created_at'], $record['updated_at']]) . PHP_EOL;
+        }
+
+        $file_records = 'enterprises/' . $id . '/records.csv';
+
+        $full_path_file_records = Storage::disk('tenant')->path($file_records);
+
+        Storage::disk('tenant')->put($file_records, $output);
+
+        return response()->download($full_path_file_records, 'records_' . $id . '.csv', ['Content-Type' => 'text/csv']);
     }
 
     public function searchByDate(Request $request,$id){
