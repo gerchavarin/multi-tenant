@@ -24,6 +24,7 @@
                             <td>Name</td>
                             <td>Email</td>
                             <td>Enterprise</td>
+                            <td>Role</td>
                             <td colspan="2">Action</td>
                             </tr>
                         </thead>
@@ -32,6 +33,7 @@
                             <tr>
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
+                                <td>{{$user->getRoleNames()->implode(', ')}}</td>
                                 <td>
                                     @foreach($user->enterprises as $index => $enterprise)
                                     {{$index > 0 ? ', ' . $enterprise->name : $enterprise->name}}

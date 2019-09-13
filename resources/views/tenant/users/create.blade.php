@@ -79,7 +79,7 @@
                             <label for="role_id" class="col-md-4 col-form-label text-md-right">{{ __('Roles') }}</label>
 
                             <div class="col-md-6">
-                                <select class="form-control selectpicker" name="role_id" id="role_id">
+                                <select class="form-control selectpicker" name="role_id" id="role_id" required>
                                     @foreach($roles as $role)
                                     <option value="{{$role->id}}">
                                         {{$role->name}}

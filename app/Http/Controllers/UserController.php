@@ -41,6 +41,7 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:tenant.users,email,' . $id],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'enterprise_ids' => ['nullable', 'array'],
+            'role_id' => ['required', 'string'],
         ]);
     }
 
@@ -88,7 +89,7 @@ class UserController extends Controller
             $user->enterprises()->attach($request['enterprise_ids']);
         }
 
-        $user->assignRole($role_id);
+        $user->assignRole($request['role_id']);
 
         return redirect('/users')->with('success', "User with id {$user->id} has been added.");
 
@@ -117,8 +118,9 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $enterprises = Enterprise::all();
         $user_enterprise_ids = $user->enterprises->pluck('id')->toArray();
+        $user_role_ids = $user->roles->pluck('id')->toArray();
         $roles = Role::all();
-        return view('tenant.users.edit', compact('user', 'enterprises', 'user_enterprise_ids', 'roles'));
+        return view('tenant.users.edit', compact('user', 'enterprises', 'user_enterprise_ids',  'roles', 'user_role_ids'));
     }
 
     /**
@@ -142,6 +144,8 @@ class UserController extends Controller
         if(isset($request['enterprise_ids'])) {
             $user->enterprises()->sync($request['enterprise_ids']);
         }
+
+        $user->syncRoles($request['role_id']);
 
         return redirect('/users')->with('success', "User with id {$id} has been updated.");
 

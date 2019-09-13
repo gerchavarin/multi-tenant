@@ -37,16 +37,16 @@ class CreatePermissionRoleSeeder extends Seeder
 
         //Create Roles
 
-        foreach ($permissions as $permission){
-            if(Permission::where('name', $permission)->get()->isEmpty()){
+        foreach ($permissions as $permission) {
+            if(Permission::where('name', $permission)->get()->isEmpty()) {
                 Permission::create(['name' => $permission]);                
             }
         }
 
         $roles = ['supervisor', 'editor'];
 
-        foreach($roles as $role){
-            if(Role::where('name', $role)->get()->isEmpty()){
+        foreach($roles as $role) {
+            if(Role::where('name', $role)->get()->isEmpty()) {
                 $role = Role::create(['name'=>$role]);
             }
         }
@@ -54,9 +54,9 @@ class CreatePermissionRoleSeeder extends Seeder
         //Assign permissions to roles
 
         $role = Role::find(1);
-        $role->givePermissionTo(['search-records', 'search-enterprises']); 
+        $role->givePermissionTo(['search-records', 'search-enterprises']);
 
-        $role = Role::find(2);                                 
+        $role = Role::find(2);
         $role->givePermissionTo([
             'search-records',
             'search-enterprises',
