@@ -76,6 +76,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="role_id" class="col-md-4 col-form-label text-md-right">{{ __('Roles') }}</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control selectpicker" name="role_id" id="role_id">
+                                    @foreach($roles as $role)
+                                    <option value="{{$role->id}}" {{ ( in_array($role->id, $user_enterprise_ids) ) ? 'selected' : '' }}>
+                                        {{$role->name}}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

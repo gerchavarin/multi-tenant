@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enterprise;
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -23,6 +24,7 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:tenant.users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'enterprise_ids' => ['nullable', 'array'],
+            'role_id' => ['required', 'string'],
         ]);
     }
 
@@ -62,7 +64,8 @@ class UserController extends Controller
     public function create()
     {
         $enterprises = Enterprise::all();
-        return view('tenant.users.create', compact('enterprises'));
+        $roles = Role::all();
+        return view('tenant.users.create', compact('enterprises', 'roles'));
     }
 
     /**
@@ -84,6 +87,8 @@ class UserController extends Controller
         if(isset($request['enterprise_ids'])) {
             $user->enterprises()->attach($request['enterprise_ids']);
         }
+
+        $user->assignRole($role_id);
 
         return redirect('/users')->with('success', "User with id {$user->id} has been added.");
 
@@ -112,7 +117,8 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $enterprises = Enterprise::all();
         $user_enterprise_ids = $user->enterprises->pluck('id')->toArray();
-        return view('tenant.users.edit', compact('user', 'enterprises', 'user_enterprise_ids'));
+        $roles = Role::all();
+        return view('tenant.users.edit', compact('user', 'enterprises', 'user_enterprise_ids', 'roles'));
     }
 
     /**
