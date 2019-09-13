@@ -33,12 +33,12 @@
                             <tr>
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
-                                <td>{{$user->getRoleNames()->implode(', ')}}</td>
                                 <td>
                                     @foreach($user->enterprises as $index => $enterprise)
                                     {{$index > 0 ? ', ' . $enterprise->name : $enterprise->name}}
                                     @endforeach
                                 </td>
+                                <td>{{$user->getRoleNames()->implode(', ')}}</td>
                                 <td><a href="{{ route('users.edit',$user->id)}}" class="btn btn-primary btn-sm">Edit</a></td>
                                 <td>
                                     <form action="{{ route('users.destroy', $user->id)}}" method="post">
