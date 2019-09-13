@@ -35,7 +35,7 @@ return [
 
     'channels' => [
         'stack' => [
-            'driver' => 'stack',
+            'driver' => 'tenant',
             'channels' => ['daily'],
             'ignore_exceptions' => false,
         ],
@@ -87,6 +87,12 @@ return [
 
         'errorlog' => [
             'driver' => 'errorlog',
+            'level' => 'debug',
+        ],
+
+        'tenant' => [
+            'driver' => 'custom',
+            'via' => \Hyn\Tenancy\Logging\TenantAwareLogger::class,
             'level' => 'debug',
         ],
     ],
