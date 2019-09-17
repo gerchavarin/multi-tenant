@@ -26,14 +26,14 @@ Route::middleware('web')
         Route::resource('/records','RecordController');
         Route::resource('/users','UserController');
     
-        Route::get('/enterprises/{id}/records','RecordController@showRecordsInEnterprise')->name('records-enterprises');
-        Route::post('/enterprises/{id}/records','RecordController@storeRecordsInEnterprise')->name('add-records-enterprises');
-        Route::get('/enterprises/{id}/records/create','RecordController@createRecordsInEnterprise')->name('create-records-enterprises');
-        Route::put('/enterprises/{id}/records/{rid}','RecordController@updateRecordsInEnterprise')->name('update-records-enterprises');
-        Route::get('/enterprises/{id}/records/{rid}/edit','RecordController@editRecordsInEnterprise')->name('edit-records-enterprises');
+
+        Route::get('/enterprises/{id}/records','RecordController@showRecordsInEnterprise')->name('records-enterprises')->middleware('permission:search-records');
+        Route::post('/enterprises/{id}/records','RecordController@storeRecordsInEnterprise')->name('add-records-enterprises')->middleware('permission:add-records');
+        Route::get('/enterprises/{id}/records/create','RecordController@createRecordsInEnterprise')->name('create-records-enterprises')->middleware('permission:create-records');
+        Route::put('/enterprises/{id}/records/{rid}','RecordController@updateRecordsInEnterprise')->name('update-records-enterprises')->middleware('permission:update-records');
+        Route::get('/enterprises/{id}/records/{rid}/edit','RecordController@editRecordsInEnterprise')->name('edit-records-enterprises')->middleware('permission:edit-records');
         Route::get('/enterprises/{id}/records/download','RecordController@downloadRecordsInEnterprise')->name('download-records-enterprises');
-    
-        Route::post('/enterprises/{id}/records/search','RecordController@searchByDate')->name('search-by-date');
+        Route::post('/enterprises/{id}/records/search','RecordController@searchByDate')->name('search-by-date')->middleware('permission:search-records');;
     
         Route::get('/home', 'HomeController@index')->name('home');
     });

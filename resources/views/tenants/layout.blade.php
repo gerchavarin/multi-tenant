@@ -50,5 +50,12 @@
             @yield('content')
         </main>
     </div>
+    <script src="{{ asset('js/app.js') }}"></script>
+<script>
+            Echo.channel('home').listen('NewMessage',(e)=>{
+               // console.log(e.message)
+               window.alert(e.message);
+            })
+</script>
 </body>
 </html>
