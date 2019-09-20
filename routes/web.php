@@ -17,3 +17,9 @@ Route::get('/', function () {
 
 
 Route::resource('tenants', 'TenantController');
+
+Route::get('email', function(){
+    $details['email'] = 'gerchavarin@gmail.com';
+    dispatch(new App\Jobs\SendEmailJob($details));
+    dd('done');
+});
