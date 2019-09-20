@@ -62633,7 +62633,21 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  */
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  created: function created() {
+    axios.get('/tenant').then(function (res) {
+      if (res.data.uuid) {
+        Echo.channel('home-' + res.data.uuid).listen('NewMessage', function (event) {
+          window.alert(event.message.message);
+        });
+      }
+    })["catch"](function (err) {
+      Echo.channel('home').listen('NewMessage', function (event) {
+        window.alert(event.message.message);
+      });
+      console.log(err);
+    });
+  }
 });
 
 /***/ }),
@@ -62695,8 +62709,9 @@ window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/d
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
   key: "5b24a102bb281dd0fc71",
-  cluster: "us2",
-  //encrypted: true
+  //cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+  //encrypted: true,
+  disableStats: true,
   wsHost: window.location.hostname,
   wsPort: 6001
 });

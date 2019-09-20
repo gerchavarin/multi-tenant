@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use Hyn\Tenancy\Models\Website;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -33,6 +34,12 @@ class NewMessage implements ShouldBroadcast
     public function broadcastOn()
     {
         //return new PrivateChannel('channel-name');
-        return new Channel('home');
+        if(isset($this->message['tenant_id'])) {
+            $website = Website::find($this->message['tenant_id']);
+            
+            return new Channel('home-' . $website->uuid);
+        } else {
+            return new Channel('home');
+        }
     }
 }
