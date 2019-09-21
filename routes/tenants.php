@@ -21,11 +21,6 @@ Route::middleware('web')
 
     Auth::routes();
 
-    Route::get('tenant', function(){
-        $website = app(Hyn\Tenancy\Environment::class)->tenant();
-        return json_encode(['uuid' => $website->uuid]);
-    });
-
     Route::group(['middleware' => ['auth']], function () {
         Route::resource('/enterprises','EnterpriseController');
         Route::resource('/records','RecordController');

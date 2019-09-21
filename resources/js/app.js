@@ -30,20 +30,4 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
-
-    created() {
-        axios.get('/tenant')
-            .then(res => {
-                if (res.data.uuid) {
-                    Echo.channel('home-' + res.data.uuid).listen('NewMessage', (event) => {
-                        window.alert(event.message.message)
-                    });
-                }
-            }).catch(err => {
-                Echo.channel('home').listen('NewMessage', (event) => {
-                    window.alert(event.message.message)
-                });
-                console.log(err)
-            })
-    },
 });
