@@ -7,6 +7,7 @@ use App\Record;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+
 class RecordController extends Controller
 {
     /**
@@ -136,10 +137,12 @@ class RecordController extends Controller
             }
         }
 
+
         return view('tenant.records.index',['records' => $records,
                                             'enterprise_id' => $id,
                                             'positive' => $positive,
                                             'negative' => $negative]);
+        
     }
 
     public function storeRecordsInEnterprise(Request $request,$id)
@@ -155,6 +158,16 @@ class RecordController extends Controller
                             'description' => $request['description'],
                             'enterprise_id' => $id
                             ]);
+        
+
+        $website   = app(\Hyn\Tenancy\Environment::class)->website();
+        $websiteId = $website->id;
+
+
+        event(new \App\Events\NewMessage(['message'=>"Se han añadido nuevos registros, tipo de movimiento : {$request['type']},
+                                                                                       monto del movimiento: {$request['mount']},
+                                                                                       concepto: {$request['description']}",
+                                          'tenant_id'=>$websiteId]));
 
         return redirect("/enterprises/{$id}/records")->with('success', "Record with id {$record->id} has been added.");
     }
