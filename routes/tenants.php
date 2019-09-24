@@ -21,7 +21,15 @@ Route::middleware('web')
 
     Auth::routes();
 
+    Route::group(['middleware' => ['web']], function ($router) {
+        $router->match(
+            ['get', 'post'], '/broadcasting/auth',
+            'BroadcastController@authenticate'
+        );
+    });
+
     Route::group(['middleware' => ['auth']], function () {
+
         Route::resource('/enterprises','EnterpriseController');
         Route::resource('/records','RecordController');
         Route::resource('/users','UserController');

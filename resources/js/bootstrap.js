@@ -60,12 +60,12 @@ window.Echo = new Echo({
 let uuid = document.head.querySelector('meta[name="website-uuid"]');
 
 if (uuid) {
-    window.Echo.channel('home-' + uuid.content)
+    window.Echo.private('home-ae4701cc-2746-43ec-a5aa-439ea8352c97')
         .listen('NewMessage', (event) => {
             window.alert(event.message.message)
         });
 } else {
-    window.Echo.channel('home')
+    window.Echo.private('home')
         .listen('NewMessage', (event) => {
             window.alert(event.message.message)
         });

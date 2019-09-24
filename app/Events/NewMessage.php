@@ -34,12 +34,13 @@ class NewMessage implements ShouldBroadcast
     public function broadcastOn()
     {
         //return new PrivateChannel('channel-name');
-        if(isset($this->message['tenant_id'])) {
+        /*if(isset($this->message['tenant_id'])) {
             $website = Website::find($this->message['tenant_id']);
             
-            return new Channel('home-' . $website->uuid);
+            return new PrivateChannel('home-' . $website->uuid);
         } else {
-            return new Channel('home');
-        }
+            return new PrivateChannel('home');
+        }*/
+        return new PrivateChannel('home-ae4701cc-2746-43ec-a5aa-439ea8352c97');
     }
 }
