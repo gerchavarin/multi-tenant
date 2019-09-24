@@ -11,7 +11,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class NewMessage implements ShouldBroadcast
+class AdminMessage implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -33,14 +33,16 @@ class NewMessage implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        //return new PrivateChannel('channel-name');
-        if(isset($this->message['tenant_id'])) {
+        /*return new PrivateChannel('channel-name');*/
+
+        /*if(isset($this->message['tenant_id'])) {
             $website = Website::find($this->message['tenant_id']);
             
             return new PrivateChannel('home-' . $website->uuid);
         } else {
             return new PrivateChannel('home');
-        }
+        }*/
 
+        return new PrivateChannel('App.User.1');
     }
 }

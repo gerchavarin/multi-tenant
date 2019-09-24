@@ -60,7 +60,7 @@ window.Echo = new Echo({
 let uuid = document.head.querySelector('meta[name="website-uuid"]');
 
 if (uuid) {
-    window.Echo.private('home-ae4701cc-2746-43ec-a5aa-439ea8352c97')
+    window.Echo.private('home-' + uuid.content)
         .listen('NewMessage', (event) => {
             window.alert(event.message.message)
         });
