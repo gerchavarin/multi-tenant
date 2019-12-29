@@ -10644,6 +10644,26 @@ a.text-dark:focus {
   }
 }
 
+@-webkit-keyframes bs-notify-fadeOut {
+  0% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bs-notify-fadeOut {
+  0% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
 select.bs-select-hidden,
 .bootstrap-select > select.bs-select-hidden,
 select.selectpicker {
@@ -10728,12 +10748,12 @@ select.selectpicker {
 .has-error .bootstrap-select .dropdown-toggle,
 .error .bootstrap-select .dropdown-toggle,
 .bootstrap-select.is-invalid .dropdown-toggle,
-.was-validated .bootstrap-select .selectpicker:invalid + .dropdown-toggle {
+.was-validated .bootstrap-select select:invalid + .dropdown-toggle {
   border-color: #b94a48;
 }
 
 .bootstrap-select.is-valid .dropdown-toggle,
-.was-validated .bootstrap-select .selectpicker:valid + .dropdown-toggle {
+.was-validated .bootstrap-select select:valid + .dropdown-toggle {
   border-color: #28a745;
 }
 
@@ -10970,6 +10990,11 @@ select.selectpicker {
   pointer-events: none;
   opacity: 0.9;
   box-sizing: border-box;
+}
+
+.bootstrap-select .dropdown-menu .notify.fadeOut {
+  -webkit-animation: 300ms linear 750ms forwards bs-notify-fadeOut;
+          animation: 300ms linear 750ms forwards bs-notify-fadeOut;
 }
 
 .bootstrap-select .no-results {
