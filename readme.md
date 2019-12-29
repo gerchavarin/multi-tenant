@@ -23,6 +23,7 @@ GRANT ALL PRIVILEGES ON DATABASE tenancy TO tenancy WITH GRANT OPTION;
 *  `php artisan db:seed --class="CrearTenantSeeder"`
 *  `npm install`
 *  `npm run dev` or `npm run production`
+*  `php artisan tenancy:db:seed --class="CreateRolePermissionSeeder"`
 
 ### Domain names
 

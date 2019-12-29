@@ -51,7 +51,7 @@ class EnterpriseController extends Controller
                             'description' => $request['description']
                             ]);
 
-        return redirect('/enterprises')->with('success', "Enterprise with id {$enterprise->name} has been added.");
+        return redirect('/enterprises')->with('success', "Enterprise with id {$enterprise->id} has been added.");
     }
 
     /**
